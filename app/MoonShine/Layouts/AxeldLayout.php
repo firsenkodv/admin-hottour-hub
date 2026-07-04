@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Layouts;
 use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
+use App\MoonShine\Resources\Site\SiteResource;
 use MoonShine\AssetManager\Js;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\ColorManager\Palettes\PurplePalette;
@@ -37,6 +38,10 @@ final class AxeldLayout extends AppLayout
             MenuGroup::make('Пользователи', [
                 MenuItem::make(MoonShineUserResource::class, 'Админ', 'user'),
                 MenuDivider::make(),
+            ]),
+
+            MenuGroup::make(static fn() => __('Мультисайт'), [
+                MenuItem::make(SiteResource::class, 'Сайты группы', 'globe-alt'),
             ]),
 
             MenuGroup::make(static fn() => __('Настройки'), [
