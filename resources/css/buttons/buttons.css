@@ -1,0 +1,130 @@
+.btn,
+.btn_danger {
+  width: auto;
+  height: 34px;
+  display: inline-table;
+  text-align: center;
+  padding: 5px 20px;
+  background: #EF533F;
+  border-radius: 4px;
+  border: 1px solid #EF533F;
+  color: #FFFFFF;
+  position: relative;
+  transition: 0.3s;
+  text-decoration: none !important;
+}
+
+.btn.btn_white {
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #EF533F;
+  color: #282828;
+  position: relative;
+  transition: 0.3s;
+  text-decoration: none !important;
+}
+
+.btn.btn_white:hover {
+  background: #EF533F;
+  border-radius: 4px;
+  border: 1px solid #EF533F;
+  color: #fff;
+  position: relative;
+  transition: 0.3s;
+  text-decoration: none !important;
+}
+
+.btn.btn_green {
+  background: #43D38B;
+  border-radius: 4px;
+  border: 1px solid #43D38B;
+  color: #ffffff;
+  position: relative;
+  transition: 0.3s;
+  text-decoration: none !important;
+}
+
+.btn.btn_green:hover {
+  background: #ffffff;
+  border: 1px solid #43D38B;
+  color: #43D38B;
+}
+
+.btn.btn_grey {
+  background: #9e9e9e;
+  border: 1px solid #9e9e9e;
+  color: #ffffff;
+  transition: 0.3s;
+  text-decoration: none !important;
+}
+
+.btn.btn_grey:hover {
+  background: #ffffff;
+  border: 1px solid #9e9e9e;
+  color: #9e9e9e;
+}
+
+.btn.over,
+.btn:hover {
+  background: #FFFFFF;
+  color: #EF533F;
+  border: 1px solid #EF533F;
+}
+
+.btn.over:hover {
+  background: #EF533F;
+  color: #FFFFFF;
+  border: 1px solid #EF533F;
+}
+
+.btn.btn-middle {
+  padding: 8px 20px;
+}
+
+.btn.btn-big {
+  padding: 10px 20px;
+  height: auto;
+  font-size: 18px;
+}
+
+.btn.btn-green {
+  background: #2F6E4D;
+  border: 1px solid #2F6E4D;
+  color: #fff;
+}
+.btn.btn-green:hover {
+  background: #fff;
+  color: #2F6E4D;
+  border: 1px solid #2F6E4D;
+}
+
+.btn.btn-red {
+  background: #EF533F;
+  border: 1px solid #EF533F;
+  color: #fff;
+}
+.btn.btn-red:hover {
+  background: #fff;
+  color: #EF533F;
+  border: 1px solid #EF533F;
+}
+
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn.btn-indigo {
+  background: #575EEF;
+  border: 1px solid #575EEF;
+  color: #fff;
+}
+.btn.btn-indigo:hover {
+  background: #fff;
+  color: #575EEF;
+  border: 1px solid #575EEF;
+}
+
+/*# sourceMappingURL=buttons.css.map */

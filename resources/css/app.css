@@ -1,0 +1,20 @@
+@import 'pagination.scss';
+@import 'general-style/paddind.scss';
+@import 'general-style/width.scss';
+@import '@fontsource-variable/source-sans-3';
+@import '@fontsource-variable/roboto/wdth.css';
+@import 'fancybox/fancubox6.scss';
+@import 'message/flach_message.scss';
+@import 'loader_map.css';
+@import 'trix/trix.scss';
+
+
+@import 'components/form/form-loader.scss';
+@import 'components/form/form-input.scss';
+@import 'buttons/buttons.scss';
+@import 'templates/axeld/breadcrumbs.scss';
+@import 'templates/axeld/content.scss';
+@import 'templates/axeld/header.scss';
+@import 'templates/axeld/footer.scss';
+@import 'style.scss';
+
