@@ -15,9 +15,9 @@
 @endif
 @if(isset($seo_keywords))
     @php
-        $title = $seo_title;
+        $keywords = $seo_keywords;
     @endphp
 @endif
-@section('title', ($title)?:null)
-@section('description', ($description)?:null)
-@section('keywords', ($keywords)?:null)
+@section('title', ($title) ?: '')
+@section('description', ($description) ?: '')
+@section('keywords', ($keywords) ?: '')

@@ -14,4 +14,14 @@ class SiteViewModel
     {
         return Site::query()->active()->get();
     }
+
+    /**
+     * Сайт, которому принадлежит контент этого инстанса (config('multisite.current_site_code')).
+     */
+    public function current(): ?Site
+    {
+        return Site::query()
+            ->where('code', config('multisite.current_site_code'))
+            ->first();
+    }
 }

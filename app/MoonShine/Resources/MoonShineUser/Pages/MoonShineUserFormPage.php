@@ -65,7 +65,7 @@ final class MoonShineUserFormPage extends FormPage
                         Image::make(__('moonshine::ui.resource.avatar'), 'avatar')
                             ->disk(moonshineConfig()->getDisk())
                             ->dir(moonshineConfig()->getUserAvatarsDir())
-                            ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif']),
+                            ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif', 'svg', 'webp']),
 
                         Date::make(__('moonshine::ui.resource.created_at'), 'created_at')
                             ->format("d.m.Y")
@@ -100,7 +100,7 @@ final class MoonShineUserFormPage extends FormPage
                 'email',
                 Rule::unique($item->getOriginal()::class)->ignoreModel($item->getOriginal()),
             ],
-            'avatar' => ['sometimes', 'nullable', 'image', 'mimes:jpeg,jpg,png,gif'],
+            'avatar' => ['sometimes', 'nullable', 'image:allow_svg', 'mimes:jpeg,jpg,png,gif,svg,webp'],
             'password' => [
                 ...$item->getKey() !== null ? ['sometimes', 'nullable'] : ['required'],
                 PasswordRule::defaults(),

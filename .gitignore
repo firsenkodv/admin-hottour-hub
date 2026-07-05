@@ -13,6 +13,7 @@
 /.nova
 /.osp
 /.phpunit.cache
+/.playwright-mcp
 /.vscode
 /.zed
 /auth.json

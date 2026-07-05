@@ -5,6 +5,16 @@ declare(strict_types=1);
 namespace App\MoonShine\Layouts;
 use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
 use App\MoonShine\Resources\Site\SiteResource;
+use App\MoonShine\Resources\Country\CountryResource;
+use App\MoonShine\Resources\Hotel\HotelResource;
+use App\MoonShine\Resources\Travelcategory\TravelcategoryResource;
+use App\MoonShine\Resources\Travelitem\TravelitemResource;
+use App\MoonShine\Resources\Tour\TourResource;
+use App\MoonShine\Resources\Hottour\HottourResource;
+use App\MoonShine\Resources\Info\InfoResource;
+use App\MoonShine\Resources\Contact\ContactResource;
+use App\MoonShine\Resources\Review\ReviewResource;
+use App\MoonShine\Resources\Document\DocumentResource;
 use MoonShine\AssetManager\Js;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\ColorManager\Palettes\PurplePalette;
@@ -38,6 +48,19 @@ final class AxeldLayout extends AppLayout
             MenuGroup::make('Пользователи', [
                 MenuItem::make(MoonShineUserResource::class, 'Админ', 'user'),
                 MenuDivider::make(),
+            ]),
+
+            MenuGroup::make(static fn() => __('Каталог'), [
+                MenuItem::make(CountryResource::class, 'Страны', 'flag'),
+                MenuItem::make(HotelResource::class, 'Отели', 'building-office'),
+                MenuItem::make(TravelcategoryResource::class, 'Полезное: категории', 'light-bulb'),
+                MenuItem::make(TravelitemResource::class, 'Полезное: статьи', 'document-text'),
+                MenuItem::make(TourResource::class, 'Туры', 'paper-airplane'),
+                MenuItem::make(HottourResource::class, 'Горящие туры', 'fire'),
+                MenuItem::make(InfoResource::class, 'О нас', 'information-circle'),
+                MenuItem::make(ContactResource::class, 'Контакты', 'phone'),
+                MenuItem::make(ReviewResource::class, 'Отзывы', 'star'),
+                MenuItem::make(DocumentResource::class, 'Документы', 'document'),
             ]),
 
             MenuGroup::make(static fn() => __('Мультисайт'), [

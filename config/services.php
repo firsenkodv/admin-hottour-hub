@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'tourvisor' => [
+        'url' => env('TOURVISOR_URL', 'https://tourvisor.ru/xml'),
+        'login' => env('TOURVISOR_LOGIN'),
+        'password' => env('TOURVISOR_PASSWORD'),
+    ],
+
 ];
