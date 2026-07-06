@@ -21,6 +21,8 @@ use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\Support\ListOf;
 use MoonShine\TinyMce\Fields\TinyMce;
 use MoonShine\UI\Components\Layout\Box;
+use MoonShine\UI\Components\Layout\Column;
+use MoonShine\UI\Components\Layout\Grid;
 use MoonShine\UI\Components\Tabs;
 use MoonShine\UI\Components\Tabs\Tab;
 use MoonShine\UI\Fields\ID;
@@ -66,9 +68,14 @@ final class CountryFormPage extends FormPage
                     ])->icon('document-text'),
 
                     Tab::make('SEO', [
-                        Text::make('Meta Title', 'metatitle'),
-                        Textarea::make('Description', 'description'),
-                        Text::make('Keywords', 'keywords'),
+                        Grid::make([
+                            Column::make([
+                                Text::make('Meta Title', 'metatitle'),
+                                Text::make('Description', 'description'),
+                                Text::make('Keywords', 'keywords'),
+                            ])->columnSpan(9),
+                        ]),
+
                     ])->icon('magnifying-glass'),
 
                     // Страна как сущность (id, slug, картинка, факты) — общая для всей группы,
@@ -77,27 +84,34 @@ final class CountryFormPage extends FormPage
                     // Существует и заполняется только на хабе.
                     ...(config('multisite.is_hub') ? [
                         Tab::make('По сайтам', [
+                            Grid::make([
+                                Column::make([
+
                             RelationRepeater::make('Контент по сайтам', 'siteContents', resource: CountrySiteContentResource::class)
                                 ->fields([
                                     BelongsTo::make(
                                         'Сайт',
                                         'site',
-                                        formatted: static fn (Site $model) => $model->title,
+                                        formatted: static fn(Site $model) => $model->title,
                                         resource: SiteResource::class,
                                     )
                                         ->required()
-                                        ->valuesQuery(static fn (Builder $q) => $q->where('is_active', true)->select(['id', 'title'])),
+                                        ->valuesQuery(static fn(Builder $q) => $q->where('is_active', true)->select(['id', 'title'])),
 
                                     Text::make('Заголовок', 'title'),
                                     Textarea::make('Краткое описание', 'smalltext'),
-                                    Textarea::make('Полное описание', 'text'),
+                                    TinyMce::make('Полное описание', 'text'),
                                     Text::make('Meta Title', 'metatitle'),
-                                    Textarea::make('Description', 'description'),
+                                    Text::make('Description', 'description'),
                                     Text::make('Keywords', 'keywords'),
                                 ])
+                                ->vertical()
                                 ->creatable()
                                 ->removable(),
+                                ])->columnSpan(9),
+                            ]),
                         ])->icon('language'),
+
                     ] : []),
                 ]),
             ]),
@@ -108,7 +122,7 @@ final class CountryFormPage extends FormPage
     {
         return [
             'title' => 'required|string|max:255',
-            ];
+        ];
     }
 
     protected function buttons(): ListOf
