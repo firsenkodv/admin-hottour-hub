@@ -5,12 +5,20 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\Country\Pages;
 
 use App\Models\Country;
+use App\Models\Site;
 use App\MoonShine\Resources\Country\CountryResource;
+use App\MoonShine\Resources\Country\CountrySiteContentResource;
+use App\MoonShine\Resources\Site\SiteResource;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
+use MoonShine\Contracts\UI\FormBuilderContract;
+use MoonShine\Laravel\Fields\Relationships\BelongsTo;
+use MoonShine\Laravel\Fields\Relationships\RelationRepeater;
 use MoonShine\Laravel\Fields\Slug;
 use MoonShine\Laravel\Pages\Crud\FormPage;
+use MoonShine\Support\ListOf;
 use MoonShine\TinyMce\Fields\TinyMce;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Tabs;
@@ -38,14 +46,8 @@ final class CountryFormPage extends FormPage
                     Tab::make('Основное', [
                         ID::make(),
 
-                        Text::make('Название', 'title')
-                            ->required(),
-
-                        Slug::make('Slug', 'slug')
-                            ->from('title')
-                            ->live()
-                            ->unique()
-                            ->required(),
+                        Text::make('Заголовок', 'title')->required()->unescape(),
+                        Slug::make('Slug', 'slug')->from('title')->unique()->locked(),
 
                         Image::make('Изображение', 'image')
                             ->disk('public')
@@ -68,6 +70,35 @@ final class CountryFormPage extends FormPage
                         Textarea::make('Description', 'description'),
                         Text::make('Keywords', 'keywords'),
                     ])->icon('magnifying-glass'),
+
+                    // Страна как сущность (id, slug, картинка, факты) — общая для всей группы,
+                    // но текст/SEO для неё может отличаться по сайтам (язык, маркетинг).
+                    // Пустое поле здесь = наследуется базовый текст из вкладок выше.
+                    // Существует и заполняется только на хабе.
+                    ...(config('multisite.is_hub') ? [
+                        Tab::make('По сайтам', [
+                            RelationRepeater::make('Контент по сайтам', 'siteContents', resource: CountrySiteContentResource::class)
+                                ->fields([
+                                    BelongsTo::make(
+                                        'Сайт',
+                                        'site',
+                                        formatted: static fn (Site $model) => $model->title,
+                                        resource: SiteResource::class,
+                                    )
+                                        ->required()
+                                        ->valuesQuery(static fn (Builder $q) => $q->where('is_active', true)->select(['id', 'title'])),
+
+                                    Text::make('Заголовок', 'title'),
+                                    Textarea::make('Краткое описание', 'smalltext'),
+                                    Textarea::make('Полное описание', 'text'),
+                                    Text::make('Meta Title', 'metatitle'),
+                                    Textarea::make('Description', 'description'),
+                                    Text::make('Keywords', 'keywords'),
+                                ])
+                                ->creatable()
+                                ->removable(),
+                        ])->icon('language'),
+                    ] : []),
                 ]),
             ]),
         ];
@@ -77,7 +108,49 @@ final class CountryFormPage extends FormPage
     {
         return [
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-        ];
+            ];
+    }
+
+    protected function buttons(): ListOf
+    {
+        return parent::buttons();
+    }
+
+    protected function formButtons(): ListOf
+    {
+        return parent::formButtons();
+    }
+
+
+    protected function modifyFormComponent(FormBuilderContract $component): FormBuilderContract
+    {
+        return $component;
+    }
+
+    /**
+     * @return list<ComponentContract>
+     * @throws Throwable
+     */
+    protected function topLayer(): array
+    {
+        return [...parent::topLayer()];
+    }
+
+    /**
+     * @return list<ComponentContract>
+     * @throws Throwable
+     */
+    protected function mainLayer(): array
+    {
+        return [...parent::mainLayer()];
+    }
+
+    /**
+     * @return list<ComponentContract>
+     * @throws Throwable
+     */
+    protected function bottomLayer(): array
+    {
+        return [...parent::bottomLayer()];
     }
 }

@@ -64,16 +64,16 @@ final class TourFormPage extends FormPage
                             ->valuesQuery(static fn (Builder $q) => $q->select(['id', 'title'])),
 
                         Text::make('Название', 'title')
-                            ->required(),
+                            ->required()
+                            ->unescape(),
 
                         Slug::make('Slug', 'slug')
                             ->from('title')
-                            ->live()
                             ->unique()
-                            ->required(),
+                            ->locked(),
 
                         Number::make('Цена', 'price')
-                            ->step('0.01'),
+                            ->step(0.01),
 
                         Number::make('Ночей', 'nights'),
 
@@ -115,7 +115,6 @@ final class TourFormPage extends FormPage
             'site_id' => 'required|exists:sites,id',
             'country_id' => 'required|exists:countries,id',
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
             'price' => 'nullable|numeric|min:0',
             'nights' => 'nullable|integer|min:0',
         ];

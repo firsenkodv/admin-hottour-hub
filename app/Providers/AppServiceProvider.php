@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Country;
+use App\Models\CountrySiteContent;
+use App\Models\Hotel;
+use App\Models\Review;
+use App\Observers\SyncToSatellitesObserver;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -38,5 +43,14 @@ class AppServiceProvider extends ServiceProvider
             /** @var Blueprint $this */
             return $this->foreignId($column)->constrained('sites')->cascadeOnDelete();
         });
+
+        // Этап 4: hub — единственное место, где редактируются шейред-сущности;
+        // рассылка на спутники происходит только оттуда.
+        if (config('multisite.is_hub')) {
+            Country::observe(SyncToSatellitesObserver::class);
+            CountrySiteContent::observe(SyncToSatellitesObserver::class);
+            Hotel::observe(SyncToSatellitesObserver::class);
+            Review::observe(SyncToSatellitesObserver::class);
+        }
     }
 }

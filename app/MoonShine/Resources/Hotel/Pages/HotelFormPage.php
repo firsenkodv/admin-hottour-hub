@@ -52,20 +52,20 @@ final class HotelFormPage extends FormPage
                             ->valuesQuery(static fn (Builder $q) => $q->select(['id', 'title'])),
 
                         Text::make('Название', 'title')
-                            ->required(),
+                            ->required()
+                            ->unescape(),
 
                         Slug::make('Slug', 'slug')
                             ->from('title')
-                            ->live()
                             ->unique()
-                            ->required(),
+                            ->locked(),
 
                         Number::make('Звёзды', 'stars')
                             ->min(1)
                             ->max(5),
 
                         Number::make('Рейтинг', 'rating')
-                            ->step('0.1'),
+                            ->step(0.1),
 
                         Image::make('Изображение', 'image')
                             ->disk('public')
@@ -104,7 +104,6 @@ final class HotelFormPage extends FormPage
         return [
             'country_id' => 'required|exists:countries,id',
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
             'stars' => 'nullable|integer|min:1|max:5',
             'rating' => 'nullable|numeric|min:0|max:10',
         ];

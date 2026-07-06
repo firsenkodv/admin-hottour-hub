@@ -25,6 +25,11 @@ class Country extends Model
         return $this->hasMany(Hotel::class);
     }
 
+    public function siteContents(): HasMany
+    {
+        return $this->hasMany(CountrySiteContent::class);
+    }
+
     public function newEloquentBuilder($query): CountryQueryBuilder
     {
         return new CountryQueryBuilder($query);

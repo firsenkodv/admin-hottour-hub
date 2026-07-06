@@ -16,4 +16,26 @@ return [
 
     'current_site_code' => env('CURRENT_SITE_CODE', 'uz'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Identity API (Этап 3)
+    |--------------------------------------------------------------------------
+    |
+    | Роль инстанса (hub / обычный сайт) переключается конфигом, а не форком
+    | кода — так же, как current_site_code выше. is_hub включает hub-only
+    | роуты /identity/*. hub_base_url — куда обычный сайт стучится за
+    | регистрацией/входом. site_api_key/secret — которыми сайт представляется
+    | хабу, это те же значения, что уже лежат в sites.api_key/api_secret
+    | (Этап 1) для записи, описывающей текущий сайт.
+    |
+    */
+
+    'is_hub' => (bool) env('IS_HUB', false),
+
+    'hub_base_url' => env('HUB_BASE_URL', env('APP_URL', 'http://localhost')),
+
+    'site_api_key' => env('SITE_API_KEY'),
+
+    'site_api_secret' => env('SITE_API_SECRET'),
+
 ];

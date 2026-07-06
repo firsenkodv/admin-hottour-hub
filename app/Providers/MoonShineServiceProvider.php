@@ -12,6 +12,7 @@ use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
 use App\MoonShine\Resources\MoonShineUserRole\MoonShineUserRoleResource;
 use App\MoonShine\Resources\Site\SiteResource;
 use App\MoonShine\Resources\Country\CountryResource;
+use App\MoonShine\Resources\Country\CountrySiteContentResource;
 use App\MoonShine\Resources\Hotel\HotelResource;
 use App\MoonShine\Resources\Travelcategory\TravelcategoryResource;
 use App\MoonShine\Resources\Travelitem\TravelitemResource;
@@ -21,6 +22,7 @@ use App\MoonShine\Resources\Info\InfoResource;
 use App\MoonShine\Resources\Contact\ContactResource;
 use App\MoonShine\Resources\Review\ReviewResource;
 use App\MoonShine\Resources\Document\DocumentResource;
+use App\MoonShine\Pages\SiteSettingsPage;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -29,17 +31,23 @@ class MoonShineServiceProvider extends ServiceProvider
      */
     public function boot(CoreContract $core): void
     {
+        // Этап 4: Страны/Отели/Отзывы редактируются только на hub'е — но ресурсы
+        // остаются зарегистрированными на всех инстансах (спутники ссылаются на
+        // CountryResource/HotelResource через BelongsTo в Travelcategory/Tour/
+        // Hottour — MoonShine требует зарегистрированный resource для таких полей).
+        // На спутниках убираем их только из меню (AxeldLayout), не из реестра.
         $core
             ->resources([
                 CountryResource::class,
+                CountrySiteContentResource::class,
                 HotelResource::class,
+                ReviewResource::class,
                 TravelcategoryResource::class,
                 TravelitemResource::class,
                 TourResource::class,
                 HottourResource::class,
                 InfoResource::class,
                 ContactResource::class,
-                ReviewResource::class,
                 DocumentResource::class,
                 SiteResource::class,
                 MoonShineUserResource::class,
@@ -47,6 +55,7 @@ class MoonShineServiceProvider extends ServiceProvider
             ])
             ->pages([
                 ...$core->getConfig()->getPages(),
+                SiteSettingsPage::class,
             ])
         ;
     }

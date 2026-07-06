@@ -76,20 +76,20 @@ final class HottourFormPage extends FormPage
                             ->valuesQuery(static fn (Builder $q) => $q->select(['id', 'title'])),
 
                         Text::make('Название', 'title')
-                            ->required(),
+                            ->required()
+                            ->unescape(),
 
                         Slug::make('Slug', 'slug')
                             ->from('title')
-                            ->live()
                             ->unique()
-                            ->required(),
+                            ->locked(),
 
                         Number::make('Цена', 'price')
-                            ->step('0.01')
+                            ->step(0.01)
                             ->required(),
 
                         Number::make('Старая цена', 'old_price')
-                            ->step('0.01'),
+                            ->step(0.01),
 
                         Number::make('Ночей', 'nights'),
 
@@ -128,7 +128,6 @@ final class HottourFormPage extends FormPage
             'country_id' => 'required|exists:countries,id',
             'hotel_id' => 'nullable|exists:hotels,id',
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'old_price' => 'nullable|numeric|min:0',
             'nights' => 'nullable|integer|min:0',

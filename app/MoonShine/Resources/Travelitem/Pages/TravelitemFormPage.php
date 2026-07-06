@@ -64,13 +64,13 @@ final class TravelitemFormPage extends FormPage
                             ->valuesQuery(static fn (Builder $q) => $q->select(['id', 'title'])),
 
                         Text::make('Название', 'title')
-                            ->required(),
+                            ->required()
+                            ->unescape(),
 
                         Slug::make('Slug', 'slug')
                             ->from('title')
-                            ->live()
                             ->unique()
-                            ->required(),
+                            ->locked(),
 
                         Image::make('Изображение', 'image')
                             ->disk('public')
@@ -104,7 +104,6 @@ final class TravelitemFormPage extends FormPage
             'site_id' => 'required|exists:sites,id',
             'travelcategory_id' => 'required|exists:travelcategories,id',
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
         ];
     }
 }

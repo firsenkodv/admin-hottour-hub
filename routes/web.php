@@ -12,7 +12,50 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\CustomerAuthController;
+use App\Http\Controllers\Identity\IdentityController;
+use App\Http\Controllers\Sync\SyncReceiveController;
+use App\Http\Middleware\VerifyHubSignature;
+use App\Http\Middleware\VerifySiteSignature;
 use Illuminate\Support\Facades\Route;
+
+/** Главная **/
+Route::get('/', [HomeController::class, 'index'])->name('home');
+/** ///Главная **/
+
+/** Личный кабинет туриста (Этап 3 — Identity API, сторона сайта) **/
+Route::controller(CustomerAuthController::class)->group(function () {
+    Route::get('/register', 'showRegister')->name('register.show');
+    Route::post('/register', 'register')->name('register');
+    Route::get('/login', 'showLogin')->name('login.show');
+    Route::post('/login', 'login')->name('login');
+    Route::post('/logout', 'logout')->name('logout');
+    Route::get('/forgot-password', 'showForgotPassword')->name('password.forgot.show');
+    Route::post('/forgot-password', 'sendResetLink')->name('password.forgot');
+    Route::get('/reset-password/{token}', 'showResetForm')->name('password.reset.show');
+    Route::post('/reset-password', 'resetPassword')->name('password.reset');
+});
+/** ///Личный кабинет туриста **/
+
+/** Identity API (Этап 3 — hub-only, включается IS_HUB=true в .env) **/
+if (config('multisite.is_hub')) {
+    Route::middleware(VerifySiteSignature::class)->prefix('identity')->controller(IdentityController::class)->group(function () {
+        Route::post('/register', 'register')->name('identity.register');
+        Route::post('/login', 'login')->name('identity.login');
+        Route::post('/password/forgot', 'forgotPassword')->name('identity.password.forgot');
+        Route::post('/password/reset', 'resetPassword')->name('identity.password.reset');
+    });
+}
+/** ///Identity API **/
+
+/** Content-sync (Этап 4 — приём push'ей от hub'а, всегда активно, не под is_hub) **/
+Route::middleware(VerifyHubSignature::class)->prefix('api/sync')->controller(SyncReceiveController::class)->group(function () {
+    Route::post('/countries', 'country')->name('sync.countries');
+    Route::post('/hotels', 'hotel')->name('sync.hotels');
+    Route::post('/reviews', 'review')->name('sync.reviews');
+});
+/** ///Content-sync **/
 
 /** Каталог: Страны / Отели **/
 Route::get('/countries', [CountryController::class, 'index'])->name('countries.index');

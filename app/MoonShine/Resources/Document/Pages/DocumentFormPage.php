@@ -48,13 +48,13 @@ final class DocumentFormPage extends FormPage
                     ->valuesQuery(static fn (Builder $q) => $q->select(['id', 'title'])),
 
                 Text::make('Название', 'title')
-                    ->required(),
+                    ->required()
+                    ->unescape(),
 
                 Slug::make('Slug', 'slug')
                     ->from('title')
-                    ->live()
                     ->unique()
-                    ->required(),
+                    ->locked(),
 
                 File::make('Файл', 'file')
                     ->disk('public')
@@ -78,7 +78,6 @@ final class DocumentFormPage extends FormPage
         return [
             'site_id' => 'required|exists:sites,id',
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
         ];
     }
 }
