@@ -1,3 +1,4 @@
+@import '_variables.scss';
 @import 'pagination.scss';
 @import 'general-style/paddind.scss';
 @import 'general-style/width.scss';
@@ -16,5 +17,11 @@
 @import 'templates/axeld/content.scss';
 @import 'templates/axeld/header.scss';
 @import 'templates/axeld/footer.scss';
+
+/* Импортируется после header.scss: у .top_menu > li > a и .header__top nav a
+   одинаковая специфичность (0,1,2), а более специфичный компонент должен
+   побеждать в каскаде над общим сбросом header — иначе display:flex
+   у пунктов меню перебивается display:block из header.scss. */
+@import 'components/menu/top_menu.scss';
 @import 'style.scss';
 

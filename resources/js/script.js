@@ -1,5 +1,6 @@
 import { imask } from './include/imask';
 import { close_flash } from './include/flash';
+import { toggleHeaderScroll } from './include/common';
 /*import {tooltip} from './include/tooltip';*/
 
 import {yandex_map_object} from "./include/site/yandex_map";
@@ -22,8 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
    // mobileMenuComponent() // мобильное меню
     removeErrors() // убрать ошибки с input`s
     flash_message() // закрытие модального окна
-    datepicker_date_birthday() // календарик день рождения
-    datepicker_accountant_ticket_date() // календарик (Дата выдачи сертификата профессионального бухгалтера)
+/*    datepicker_date_birthday() // календарик день рождения
+    datepicker_accountant_ticket_date() // календарик */
     trix() //редактор
     faqAccordion() // FAQ аккордеон
+    toggleHeaderScroll() // фон header при скролле
 });

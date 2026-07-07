@@ -1,14 +1,4 @@
-@charset "utf-8";
-$color: #282828;
-$colorRed: #EF533F;
-$colorCCC: #CCCCCC;
-$colorGrey: #667085;
-$colorBlue: #002775;
-$colorBlue2: #03a9f4;
-$colorGreen: #0f6567;
-$colorYellow: #FF931E;
-$colorOrange: #FF732C;
-
+@import '../_variables';
 
 $maxWidth: 1440;
 @mixin adaptiv-font($pcSize, $mobSize) {
@@ -32,7 +22,7 @@ $maxWidth: 1440;
     height: 56px;
     text-decoration: none;
     text-transform: none;
-    background: $colorBlue;
+    background: $colorBlueDark;
     color: #fff;
     display: flex;
     align-items: center;
@@ -44,13 +34,13 @@ $maxWidth: 1440;
     font-weight: 500;
     border-radius: 12px;
     transition: 0.2s;
-    border: 1px solid $colorBlue;
+    border: 1px solid $colorBlueDark;
     cursor: pointer;
 
 
     &:hover {
         background:#fff ;
-        color: $colorBlue;
+        color: $colorBlueDark;
         border: 1px solid #E6E0EC;
     }
 
@@ -71,14 +61,14 @@ $maxWidth: 1440;
 
     &.white {
         background: #fff;
-        color: $colorBlue;
+        color: $colorBlueDark;
         border: 1px solid #E6E0EC;
 
     }
     &.white:hover {
-        background: $colorBlue;
+        background: $colorBlueDark;
         color: #fff;
-        border: 1px solid $colorBlue;
+        border: 1px solid $colorBlueDark;
 
     }
 
@@ -127,7 +117,7 @@ $maxWidth: 1440;
     height: 48px;
     text-decoration: none;
     text-transform: none;
-    background: $colorBlue;
+    background: $colorBlueDark;
     color: #fff;
     display: flex;
     align-items: center;
@@ -139,13 +129,13 @@ $maxWidth: 1440;
     font-weight: 500;
     border-radius: 12px;
     transition: 0.2s;
-    border: 1px solid $colorBlue;
+    border: 1px solid $colorBlueDark;
     cursor: pointer;
 
 
     &:hover {
         background:#fff ;
-        color: $colorBlue;
+        color: $colorBlueDark;
         border: 1px solid #E6E0EC;
     }
 
@@ -166,14 +156,14 @@ $maxWidth: 1440;
 
     &.white {
         background: #fff;
-        color: $colorBlue;
+        color: $colorBlueDark;
         border: 1px solid #E6E0EC;
 
     }
     &.white:hover {
-        background: $colorBlue;
+        background: $colorBlueDark;
         color: #fff;
-        border: 1px solid $colorBlue;
+        border: 1px solid $colorBlueDark;
 
     }
     &.green {

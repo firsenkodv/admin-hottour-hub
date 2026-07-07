@@ -26,7 +26,7 @@
     <x-message.message/>
     <x-message.message_error/>
     @include('templates.axeld.header')
-    <main>
+    <main class="p118 {{ route_name() }}">
         @yield('content')
     </main>
 </div><!--.content_-->

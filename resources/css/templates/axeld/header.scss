@@ -1,3 +1,198 @@
 // ============================================================
 // HEADER
 // ============================================================
+
+@import '../../_variables';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 35;
+}
+
+.header__top-bg {
+    background: $headerTopbarBg;
+}
+
+.header__top {
+    max-width: $containerWidth;
+    margin: 0 auto;
+    height: 40px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.header__top nav {
+    padding: 3px 0;
+    box-sizing: border-box;
+}
+
+.header__top nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 34px;
+}
+
+.header__top nav a {
+    text-decoration: none;
+    display: block;
+    color: #fff;
+}
+
+.header__right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.icon-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-circle img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.header__social {
+    display: flex;
+    align-items: center;
+}
+
+.header__social .icon-circle {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ffffff;
+    border-radius: 33px;
+    margin: 0 3px;
+}
+
+.header__langs {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.header__langs a {
+    color: $headerLangColor;
+}
+
+.header__langs a.is-active {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.header__bottom-bg {
+    background: none;
+    transition: background .2s;
+}
+
+.header__bottom-bg.is-scrolled {
+    background: $color;
+}
+
+.header__bottom {
+    max-width: $containerWidth;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    min-height: 52px;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+}
+
+.header__logo img {
+    background: $headerLogoBg;
+    border-radius: 25px;
+    padding: 0;
+    width: 260px;
+    height: 48px;
+}
+
+.header__contacts {
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #fff;
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.contact-icon__first img {
+    width: 30px;
+    height: 25px;
+}
+
+.contact-label {
+    font-size: 12px;
+    color: $headerContactLabel;
+}
+
+.contact-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.cabinet-pill {
+    background: #fff;
+    color: $headerCabinetText;
+    border-radius: 30px;
+    padding: 8px 20px 8px 8px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    height: 48px;
+}
+
+.cabinet-pill__avatar {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    background-image: url('/images/icons/icon-avatar.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}

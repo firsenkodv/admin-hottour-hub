@@ -1,10 +1,84 @@
-@charset "utf-8";
-$color: #282828;
-$colorRed: #EF533F;
-$colorCCC: #CCCCCC;
-$colorGrey: #667085;
-$colorBlue: #095C9A;
-$colorBlue2: #03a9f4;
-$colorGreen: #0f6567;
-$colorYellow: #FF931E;
-$colorOrange: #FF732C;
+// ============================================================
+// MENU (components/menu/top_menu.scss — папка повторяет имя компонента
+// App\View\Components\Menu\TopMenu / resources/views/components/menu)
+// ============================================================
+
+@import '../../_variables';
+
+.top_menu {
+    position: relative;
+}
+
+.top_menu > li {
+    display: inline-block;
+    position: relative;
+    z-index: 30;
+}
+
+.top_menu > li > a {
+    position: relative;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+.top_menu li.active > a {
+    background-color: $menuActiveBg;
+    border-radius: 20px;
+}
+
+.top_menu .submenu {
+    position: absolute;
+    z-index: 30;
+    left: 50%;
+    top: 90%;
+    width: 250px;
+    height: auto;
+    padding: 5px;
+    margin-top: 7px;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+    box-sizing: border-box;
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(-50%, 20px);
+    transition: .3s;
+}
+
+.top_menu .submenu li a {
+    font-size: 15px;
+    height: 34px;
+    padding: 0 10px;
+    transition: .3s linear;
+    display: flex;
+    align-items: center;
+    color: $color;
+    border-radius: 0;
+}
+
+.top_menu .submenu li a:hover {
+    background: rgba($colorRed, 0.16);
+    color: $colorRed;
+}
+
+.top_menu .submenu li:first-child a {
+    border-radius: 4px 4px 0 0;
+}
+
+.top_menu .submenu li:last-child a {
+    border-radius: 0 0 4px 4px;
+}
+
+.top_menu .submenu li.active a {
+    background: rgba($colorRed, 0.16);
+    color: $colorRed;
+}
+
+.top_menu > li:hover .submenu {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0);
+}

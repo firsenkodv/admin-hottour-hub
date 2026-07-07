@@ -1,27 +1,53 @@
-<header class="site-header">
-    <nav class="site-nav">
-        <a href="{{ route('home') }}" class="site-nav__logo">Hot Tour</a>
+<header class="header">
+    <div class="header__top-bg">
+        <div class="header__top">
+            <nav>
+                <x-menu.top-menu />
+            </nav>
 
-        <ul class="site-nav__menu">
-            <li><a href="{{ route('countries.index') }}">Страны</a></li>
-            <li><a href="{{ route('hottours.index') }}">Горящие туры</a></li>
-            <li><a href="{{ route('reviews.index') }}">Отзывы</a></li>
-            <li><a href="{{ route('about.show') }}">О нас</a></li>
-            <li><a href="{{ route('documents.index') }}">Документы</a></li>
-            <li><a href="{{ route('contacts.show') }}">Контакты</a></li>
-        </ul>
-
-        <div class="site-nav__auth">
-            @auth
-                <a href="{{ route('home') }}">{{ auth()->user()->name }}</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit">Выйти</button>
-                </form>
-            @else
-                <a href="{{ route('login.show') }}">Войти</a>
-                <a href="{{ route('register.show') }}">Регистрация</a>
-            @endauth
+            <div class="header__right">
+                <div class="header__social">
+                    <a href="#" class="icon-circle"><img src="{{ asset('images/icons/icon-facebook.svg') }}" alt="Facebook"></a>
+                    <a href="#" class="icon-circle"><img src="{{ asset('images/icons/icon-youtube.svg') }}" alt="YouTube"></a>
+                    <a href="#" class="icon-circle"><img src="{{ asset('images/icons/icon-instagram.svg') }}" alt="Instagram"></a>
+                    <a href="#" class="icon-circle"><img src="{{ asset('images/icons/icon-whatsapp.svg') }}" alt="WhatsApp"></a>
+                    <a href="#" class="icon-circle"><img src="{{ asset('images/icons/icon-telegram.svg') }}" alt="Telegram"></a>
+                </div>
+                <div class="header__langs">
+                    <a href="#" class="is-active">Рус</a>
+                    <a href="#">Қаз</a>
+                    <a href="#">Eng</a>
+                </div>
+            </div>
         </div>
-    </nav>
+    </div>
+
+    <div class="header__bottom-bg">
+        <div class="header__bottom">
+            <a href="{{ route('home') }}" class="header__logo">
+                <img src="{{ asset('images/icons/logo.svg') }}" width="260" height="48" alt="HOTTOUR">
+            </a>
+
+            <div class="header__contacts">
+                <div class="contact-item">
+                    <span class="contact-icon contact-icon__first"><img src="{{ asset('images/icons/icon-callback.svg') }}" alt=""></span>
+                    <div>
+                        <div class="contact-label">Форма обратной связи</div>
+                        <div class="contact-value">Заказать звонок</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon"><img src="{{ asset('images/icons/icon-phone.svg') }}" alt=""></span>
+                    <div>
+                        <div class="contact-label">Телефон</div>
+                        <div class="contact-value">8 707 383 99 66</div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{{ route('login.show') }}" class="cabinet-pill">
+                <span class="cabinet-pill__avatar"></span> Вход
+            </a>
+        </div>
+    </div>
 </header>
