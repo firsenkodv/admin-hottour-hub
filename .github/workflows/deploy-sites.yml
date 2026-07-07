@@ -37,6 +37,15 @@ jobs:
 
       - name: Sync files via rsync
         run: |
+          APP_PATH="${{ secrets.HUB_APP_PATH }}"
+          case "$APP_PATH" in
+            /var/www/vhosts/*) ;;
+            *)
+              echo "::error::HUB_APP_PATH ('$APP_PATH') is empty or doesn't look like a real vhost path — refusing to rsync --delete"
+              exit 1
+              ;;
+          esac
+
           rsync -rltz --delete \
             --exclude='.git' \
             --exclude='.github' \
@@ -50,7 +59,7 @@ jobs:
             --exclude='storage/framework/views' \
             --exclude='public/storage' \
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.HUB_APP_PATH }}/
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:"$APP_PATH"/
 
       - name: Post-deploy tasks
         uses: appleboy/ssh-action@v1.0.3
@@ -65,6 +74,13 @@ jobs:
             OWNER="admin.hottur.uz:psaserv"
             PHP_BIN="/opt/plesk/php/8.3/bin/php"
             COMPOSER="/opt/psa/var/modules/composer/composer.phar"
+
+            for p in "$APP_PATH" "$HTTPDOCS_PATH"; do
+              case "$p" in
+                /var/www/vhosts/*) ;;
+                *) echo "Refusing to proceed: path '$p' is empty or not a real vhost path" >&2; exit 1 ;;
+              esac
+            done
 
             cd "$APP_PATH"
 
@@ -138,6 +154,15 @@ jobs:
 
       - name: Sync files via rsync
         run: |
+          APP_PATH="${{ secrets.HOTTOUR_APP_PATH }}"
+          case "$APP_PATH" in
+            /var/www/vhosts/*) ;;
+            *)
+              echo "::error::HOTTOUR_APP_PATH ('$APP_PATH') is empty or doesn't look like a real vhost path — refusing to rsync --delete"
+              exit 1
+              ;;
+          esac
+
           rsync -rltz --delete \
             --exclude='.git' \
             --exclude='.github' \
@@ -151,7 +176,7 @@ jobs:
             --exclude='storage/framework/views' \
             --exclude='public/storage' \
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.HOTTOUR_APP_PATH }}/
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:"$APP_PATH"/
 
       - name: Post-deploy tasks
         uses: appleboy/ssh-action@v1.0.3
@@ -166,6 +191,13 @@ jobs:
             OWNER="admin.hottur.uz:psaserv"
             PHP_BIN="/opt/plesk/php/8.3/bin/php"
             COMPOSER="/opt/psa/var/modules/composer/composer.phar"
+
+            for p in "$APP_PATH" "$HTTPDOCS_PATH"; do
+              case "$p" in
+                /var/www/vhosts/*) ;;
+                *) echo "Refusing to proceed: path '$p' is empty or not a real vhost path" >&2; exit 1 ;;
+              esac
+            done
 
             cd "$APP_PATH"
 
@@ -236,6 +268,15 @@ jobs:
 
       - name: Sync files via rsync
         run: |
+          APP_PATH="${{ secrets.KG_APP_PATH }}"
+          case "$APP_PATH" in
+            /var/www/vhosts/*) ;;
+            *)
+              echo "::error::KG_APP_PATH ('$APP_PATH') is empty or doesn't look like a real vhost path — refusing to rsync --delete"
+              exit 1
+              ;;
+          esac
+
           rsync -rltz --delete \
             --exclude='.git' \
             --exclude='.github' \
@@ -249,7 +290,7 @@ jobs:
             --exclude='storage/framework/views' \
             --exclude='public/storage' \
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.KG_APP_PATH }}/
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:"$APP_PATH"/
 
       - name: Post-deploy tasks
         uses: appleboy/ssh-action@v1.0.3
@@ -264,6 +305,13 @@ jobs:
             OWNER="hottour.com:psaserv"
             PHP_BIN="/opt/plesk/php/8.3/bin/php"
             COMPOSER="/opt/psa/var/modules/composer/composer.phar"
+
+            for p in "$APP_PATH" "$HTTPDOCS_PATH"; do
+              case "$p" in
+                /var/www/vhosts/*) ;;
+                *) echo "Refusing to proceed: path '$p' is empty or not a real vhost path" >&2; exit 1 ;;
+              esac
+            done
 
             cd "$APP_PATH"
 
