@@ -1,4 +1,4 @@
-@props(['prefix' => 'logo'])
+@props(['prefix' => 'header__logo'])
 
 @php
     $isHome = request()->routeIs('home');
@@ -10,11 +10,7 @@
     <a href="{{ route('home') }}" {{ $attributes->merge(['class' => $prefix]) }}>
 @endif
 
-    <img src="{{ Storage::url('/images/ic_logo.svg') }}" alt="{{ config('site.constants.logo.alt') }}" class="{{ $prefix }}-icon" />
-    <div class="{{ $prefix }}-text">
-        <div class="{{ $prefix }}-name">{{ config('site.constants.logo.name') }} <span class="{{ $prefix }}-accent">{{ config('site.constants.logo.accent') }}</span></div>
-        <div class="{{ $prefix }}-sub">{{ config('site.constants.logo.sub') }}</div>
-    </div>
+    <img src="{{ asset('images/icons/logo.svg') }}" width="260" height="48" alt="HOTTOUR">
 
 @if ($isHome)
     </div>

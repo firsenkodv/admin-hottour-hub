@@ -24,9 +24,7 @@
 
     <div class="header__bottom-bg">
         <div class="header__bottom">
-            <a href="{{ route('home') }}" class="header__logo">
-                <img src="{{ asset('images/icons/logo.svg') }}" width="260" height="48" alt="HOTTOUR">
-            </a>
+            <x-logo.logo />
 
             <div class="header__contacts">
                 <div class="contact-item">
