@@ -1,8 +1,6 @@
 name: Deploy Sites
 
 on:
-  push:
-    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -29,6 +27,13 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Debug SSH connection
+        run: |
+          echo "--- key fingerprint ---"
+          ssh-keygen -lf ~/.ssh/deploy_key || echo "FINGERPRINT FAILED - key file is malformed"
+          echo "--- verbose connection test ---"
+          ssh -vv -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo CONNECTION_OK" || true
 
       - name: Sync files via rsync
         run: |
@@ -124,6 +129,13 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
 
+      - name: Debug SSH connection
+        run: |
+          echo "--- key fingerprint ---"
+          ssh-keygen -lf ~/.ssh/deploy_key || echo "FINGERPRINT FAILED - key file is malformed"
+          echo "--- verbose connection test ---"
+          ssh -vv -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo CONNECTION_OK" || true
+
       - name: Sync files via rsync
         run: |
           rsync -rltz --delete \
@@ -214,6 +226,13 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Debug SSH connection
+        run: |
+          echo "--- key fingerprint ---"
+          ssh-keygen -lf ~/.ssh/deploy_key || echo "FINGERPRINT FAILED - key file is malformed"
+          echo "--- verbose connection test ---"
+          ssh -vv -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o BatchMode=yes ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo CONNECTION_OK" || true
 
       - name: Sync files via rsync
         run: |
