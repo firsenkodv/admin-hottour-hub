@@ -19,15 +19,17 @@ class HomeController extends Controller
         ReviewViewModel $reviews,
         SiteViewModel $sites,
     ): View|RedirectResponse {
-        // Хаб — админ-инструмент без публичной витрины (не привязан к стране),
-        // поэтому у него нет "текущего сайта" в sites и своей главной страницы.
-        if (config('multisite.is_hub')) {
-            return redirect('/admin');
-        }
-
         $site = $sites->current();
 
-        abort_if(!$site, 500, 'Текущий сайт не настроен (config/multisite.php).');
+        if (!$site) {
+            // На хабе current_site_code обычно не совпадает ни с одним Site
+            // (у хаба нет своей публичной витрины) — ведём в админку. Если же
+            // это не хаб и сайт всё равно не найден — это реальная ошибка
+            // конфигурации, а не хаб, поэтому остаётся 500.
+            abort_if(!config('multisite.is_hub'), 500, 'Текущий сайт не настроен (config/multisite.php).');
+
+            return redirect('/admin');
+        }
 
         return view('pages.home.index', [
             'countries' => $countries->listCountries(perPage: 6),
